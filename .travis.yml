@@ -1,0 +1,24 @@
+language: generic
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t jflores233/react-test -f ./client/Dockerfile ./client
+
+script:
+  - docker run -e CI=true jflores233/react-test npm run test -- --coverage
+
+after_success:
+  - docker build -t jflores233/multi-client ./client
+  - docker build -t jflores233/multi-nginx ./nginx
+  - docker build -t jflores233/multi-server ./server
+  - docker build -t jflores233/multi-worker ./worker
+  # login to docker hub
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  #push img to docker hub
+  - docker push jflores233/multi-client
+  - docker push jflores233/multi-nginx
+  - docker push jflores233/multi-server
+  - docker push jflores233/multi-worker

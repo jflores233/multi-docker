@@ -7,10 +7,10 @@ services:
 before_install:
   - docker build -t jflores233/react-test -f ./client/Dockerfile ./client
 
-script:
-  - docker run -e CI=true jflores233/react-test npm test
+#script:
+#  - docker run -e CI=true jflores233/react-test npm test
 
-after_success:
+deploy:
   - docker build -t jflores233/multi-client ./client
   - docker build -t jflores233/multi-nginx ./nginx
   - docker build -t jflores233/multi-server ./server

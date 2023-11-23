@@ -8,7 +8,7 @@ before_install:
   - docker build -t jflores233/react-test -f ./client/Dockerfile ./client
 
 script:
-  - docker run CI=true jflores233/react-test npm run test -- --coverage
+  - docker run -e CI=true jflores233/react-test npm test
 
 after_success:
   - docker build -t jflores233/multi-client ./client

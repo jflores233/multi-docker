@@ -10,7 +10,7 @@ before_install:
 #script:
 #  - docker run -e CI=true jflores233/react-test npm test
 
-deploy:
+script:
   - docker build -t lightbulb233/multi-client ./client
   - docker build -t lightbulb233/multi-nginx ./nginx
   - docker build -t lightbulb233/multi-server ./server

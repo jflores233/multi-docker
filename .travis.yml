@@ -22,3 +22,15 @@ script:
   - docker push lightbulb233/multi-nginx
   - docker push lightbulb233/multi-server
   - docker push lightbulb233/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "multi-docker"
+  env: "Multi-docker-env"
+  bucket_name: "elasticbeanstalk-us-east-2-755083493869"
+  bucket_path: "Docker-multi"
+  on:
+    branch: main
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
